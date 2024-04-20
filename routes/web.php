@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductsController;
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,20 @@ Route::get('/posts/{id}', function ($id) {
 Route::get('/search', function (Request $request) {
     return ($request->name . ' ' . $request->city);
 });
+Route::get('/products', [ProductsController::class, 'index']);
+Route::get('/products/{id}', [ProductsController::class, 'show']);
+
+// Common Resource Routes
+// index - show all listings
+// create - show create form
+// store - store listing data
+// show - show single listing
+// edit - show edit form
+// update - update listing data
+// destroy - delete listing
+
 // All Listings
-Route::get('/', function () {
-    return view('listings', ['heading' => 'Latest Listings', 'listings' => Listing::all()]);
-});
+Route::get('/', [ListingController::class, 'index']);
 
 // Single Listing
-Route::get('/listings/{listing}', function (Listing $listing) {
-    return view('listing', ['listing' => $listing]);
-});
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
