@@ -8,6 +8,11 @@ class ProductsController extends Controller
 {
     public function index()
     {
+        //print URL
+        print_r(route('products')); // the nickname of the route
+        //direcrly in the view
+        return view('products.index');
+        
         $data = ['productOne' => 'Apple', 'productTwo' => 'Orange', 'productThree' => 'Banana'];
         return view('products.index')->with('data', $data);
 

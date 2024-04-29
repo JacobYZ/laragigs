@@ -5,6 +5,7 @@ use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\MainPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,6 @@ Route::get('/posts/{id}', function ($id) {
 Route::get('/search', function (Request $request) {
     return ($request->name . ' ' . $request->city);
 });
-Route::get('/products', [ProductsController::class, 'index']);
-Route::get('/products/{id}', [ProductsController::class, 'show']);
 
 // Common Resource Routes
 // index - show all listings
@@ -51,3 +50,17 @@ Route::post('/listings', [ListingController::class, 'store']);
 Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
 // Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+Route::get('/products', [ProductsController::class, 'index']);
+//validation
+//pattern is integer
+Route::get('/products/{id}', [ProductsController::class, 'show'])->where('id', '[0-9]+');
+//pattern is string
+Route::get('/products/{name}', [ProductsController::class, 'show'])->where('name', '[A-Za-z]+');
+//multiple patterns
+Route::get('/products/{id}/{name}', [ProductsController::class, 'show'])->where(['id' => '[0-9]+', 'name' => '[A-Za-z]+']);
+//Named Routes
+Route::get('/products', [ProductsController::class, 'index'])->name('products');
+
+// Route::get('/', [MainPageController::class, 'index'])->name('main');
+// Route::get('about', [MainPageController::class, 'about'])->name('about');

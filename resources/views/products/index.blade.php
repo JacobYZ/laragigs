@@ -11,7 +11,8 @@
 <body>
     <h1>Products</h1>
     <p> This is a list of products</p>
-    <p>{{ $products }}</p>
+    <a href="{{ route('products') }}">Go to Product page</a>
+    {{-- <p>{{ $products }}</p> --}}
 </body>
 
 </html>
